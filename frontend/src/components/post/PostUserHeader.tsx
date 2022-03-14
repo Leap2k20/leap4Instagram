@@ -1,6 +1,42 @@
 import React from 'react'
-
 import { View, Text, StyleSheet, Image, Button, TouchableWithoutFeedback, Alert } from 'react-native'
+
+export type Props = {
+    username?: string;
+    sponsored?: boolean
+};
+
+export const PostUserHeader: React.FC<Props> = ({ username = 'username', sponsored = false }) => {
+    return (
+        <View style={styles.container}>
+            <View style={styles.left}>
+                <View>
+                    <Image style={styles.profilePic} source={{
+                        uri: 'https://picsum.photos/200',
+                    }} />
+                </View>
+                <TouchableWithoutFeedback onPress={() => Alert.alert('You clicked username!')}>
+                    <View>
+                        <Text style={styles.username}>
+                            {username}
+                        </Text>
+                        {sponsored ?
+                            <Text style={styles.sponsored}>
+                                Sponsored
+                            </Text>
+                            : <></>
+                        }
+                    </View>
+                </TouchableWithoutFeedback>
+            </View>
+            <TouchableWithoutFeedback onPress={() => Alert.alert('You clicked 3 dots!')}>
+                <View >
+                    <Text style={styles.button}>...</Text>
+                </View>
+            </TouchableWithoutFeedback>
+        </View>
+    )
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -35,42 +71,3 @@ const styles = StyleSheet.create({
         margin: 8
     }
 })
-
-export type Props = {
-    uri: string;
-    username: string;
-    sponsored?: boolean
-};
-
-export const UserHeader: React.FC<Props> = ({ uri, username, sponsored = false }) => {
-
-    return (
-        <View style={styles.container}>
-            <View style={styles.left}>
-                <View>
-                    <Image style={styles.profilePic} source={{
-                        uri: uri,
-                    }} />
-                </View>
-                <TouchableWithoutFeedback onPress={() => Alert.alert('You clicked username!')}>
-                    <View>
-                        <Text style={styles.username}>
-                            {username}
-                        </Text>
-                        {sponsored ?
-                            <Text style={styles.sponsored}>
-                                Sponsored
-                            </Text>
-                            : <></>
-                        }
-                    </View>
-                </TouchableWithoutFeedback>
-            </View>
-            <TouchableWithoutFeedback onPress={() => Alert.alert('You clicked 3 dots!')}>
-                <View >
-                    <Text style={styles.button}>...</Text>
-                </View>
-            </TouchableWithoutFeedback>
-        </View>
-    )
-}
